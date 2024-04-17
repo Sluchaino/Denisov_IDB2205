@@ -9,6 +9,10 @@ using UnityEngine.Analytics;
 public class Player
 {
     public int Score;
+    public Player(int score)
+    {
+        Score = score;
+    }
 }
 
 public class Json : MonoBehaviour
@@ -19,8 +23,14 @@ public class Json : MonoBehaviour
     void Start()
     {
         StreamReader reader = new StreamReader(path);
-        player = JsonUtility.FromJson<Player>(reader.ReadLine());
+        string a = reader.ReadLine();
+        print(a);
+        if(a != null)
+            player = JsonUtility.FromJson<Player>(a);
+        else
+            player = new Player(0);
         score.text = Convert.ToString(player.Score);
+
         reader.Close();
     }
     public void OnDisable()
